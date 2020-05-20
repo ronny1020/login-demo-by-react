@@ -1,3 +1,3 @@
-const privateKey = "secret";
+const privateKey = 'secret'
 
-export default privateKey;
+export default privateKey
