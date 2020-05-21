@@ -54,4 +54,21 @@ function responseFacebook(response) {
   }
 }
 
-export { handleLogin, responseFacebook }
+function twitterAuthHandler(err, data) {
+  const user = {
+    account: data.screen_name,
+  }
+  setToken(user)
+  window.location.replace('/member')
+}
+
+function responseGoogle(response) {
+  const user = {
+    account: response.profileObj.name,
+    email: response.profileObj.email,
+  }
+  setToken(user)
+  window.location.replace('/member')
+}
+
+export { handleLogin, responseFacebook, twitterAuthHandler, responseGoogle }

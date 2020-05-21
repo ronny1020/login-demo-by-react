@@ -3,7 +3,7 @@ import React from 'react'
 function Home() {
   return (
     <div className="container">
-      <h1>index</h1>
+      <h1>首頁</h1>
     </div>
   )
 }

@@ -1,8 +1,16 @@
 import React, { useState } from 'react'
-import { handleLogin, responseFacebook } from '../actions/handleLogin'
+import {
+  handleLogin,
+  responseFacebook,
+  twitterAuthHandler,
+  responseGoogle,
+} from '../actions/handleLogin'
 
-import { FaFacebook } from 'react-icons/fa'
+import { FaFacebook, FaTwitter } from 'react-icons/fa'
+import { FcGoogle } from 'react-icons/fc'
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
+import TwitterLogin from 'react-twitter-login'
+import GoogleLogin from 'react-google-login'
 
 function Login() {
   const [error, setError] = useState(false)
@@ -42,18 +50,42 @@ function Login() {
         {error ? (
           <small className="text-danger">帳號或密碼輸入錯誤</small>
         ) : null}
-        <div className="d-flex">
-          <div className="display-4">
-            <FacebookLogin
-              appId="250506489358768"
-              autoLoad={false}
-              fields="name,email,picture"
-              callback={responseFacebook}
-              render={(renderProps) => (
-                <FaFacebook onClick={renderProps.onClick} />
-              )}
-            />
-          </div>
+        <div className="d-flex display-4">
+          <FacebookLogin
+            appId="250506489358768"
+            autoLoad={false}
+            fields="name,email,picture"
+            callback={responseFacebook}
+            render={(renderProps) => (
+              <FaFacebook
+                onClick={renderProps.onClick}
+                className="facebookLogo"
+              />
+            )}
+          />
+
+          <TwitterLogin
+            authCallback={twitterAuthHandler}
+            className="d-flex ml-3"
+            consumerKey="PnpxUUh2wUQxeq7DB3l3hFIgl"
+            consumerSecret="ExdYOkOt1HtEqupn2WyRDIOtW2ctiWxI8v3tejVxOzkFqJSBEr"
+            callbackUrl="http://127.0.0.1:3000/login"
+            children={<FaTwitter className="twitterLogo" />}
+          />
+
+          <GoogleLogin
+            clientId="352436728624-pte8cm49kuk8vk6r5umlp6b4orom893p.apps.googleusercontent.com"
+            buttonText="Login"
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+            cookiePolicy={'single_host_origin'}
+            render={(renderProps) => (
+              <FcGoogle
+                onClick={renderProps.onClick}
+                className="ml-3 googleLogo"
+              />
+            )}
+          />
         </div>
 
         <button type="submit" className="btn btn-primary mt-5 w-25">
